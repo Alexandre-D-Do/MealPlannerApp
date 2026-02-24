@@ -6,10 +6,9 @@ using System.Threading.Tasks;
 
 namespace MealPlannerApp.Model
 {
-    internal class Condiment
+    internal class Ingredient
     {
-        string Name;
-        Boolean IsStocked;
-
+        string Name { get; set; }
+        float Quantity { get; set; }
     }
 }
