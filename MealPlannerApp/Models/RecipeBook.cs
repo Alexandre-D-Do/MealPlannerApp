@@ -6,9 +6,8 @@ using System.Threading.Tasks;
 
 namespace MealPlannerApp.Models
 {
-    public class Ingredient
+    public class RecipeBook
     {
-        public string Name { get; set; }
-        public bool IsStocked { get; set; }
+        private readonly 
     }
 }

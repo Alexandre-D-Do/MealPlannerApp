@@ -4,12 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MealPlannerApp.Model
+namespace MealPlannerApp.Services.RecipeProviders
 {
-    internal class Condiment
+    public class DatabaseRecipeProvider
     {
-        string Name;
-        bool IsStocked;
-
     }
 }

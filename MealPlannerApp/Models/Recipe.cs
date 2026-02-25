@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MealPlannerApp.Model
+namespace MealPlannerApp.Models
 {
-    internal class Recipe
+    public class Recipe
     {
         public string Name { get; set; }
         public string Cuisine { get; set; }

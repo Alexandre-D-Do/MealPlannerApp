@@ -4,7 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Input;
 
-namespace MealPlannerApp.View.UserControls
+namespace MealPlannerApp.UserControls
 {
     /// <summary>
     /// Interaction logic for TitleBar.xaml
