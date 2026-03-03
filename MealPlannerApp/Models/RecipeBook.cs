@@ -8,6 +8,6 @@ namespace MealPlannerApp.Models
 {
     public class RecipeBook
     {
-        private readonly 
+        
     }
 }

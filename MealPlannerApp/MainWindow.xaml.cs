@@ -27,8 +27,8 @@ namespace MealPlannerApp
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            RecipeWindow recipeWindow = new RecipeWindow();
-            recipeWindow.ShowDialog();
+            //RecipeWindow recipeWindow = new RecipeWindow();
+            //recipeWindow.ShowDialog();
         }
 
         

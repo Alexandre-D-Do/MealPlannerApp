@@ -5,9 +5,11 @@
         xmlns:d="http://schsemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MealPlannerApp"
+        xmlns:views="clr-namespace:MealPlannerApp.Views"
+        xmlns:vms="clr-namespace:MealPlannerApp.ViewModels"
         mc:Ignorable="d"
         WindowStyle="None"
-        xmlns:userControls="clr-namespace:MealPlannerApp.View.UserControls" 
+        xmlns:userControls="clr-namespace:MealPlannerApp.UserControls" 
         Title="Meal Planner" Height="600" Width="1000">
 
 
@@ -18,13 +20,17 @@
             <RowDefinition Height="30"/>
             <RowDefinition Height="*" />
         </Grid.RowDefinitions>
-        <Grid.ColumnDefinitions>
-        </Grid.ColumnDefinitions>
-        <userControls:TitleBar  Grid.Row="0" />
-        <DataGrid Grid.Row="1"  Width="875" Height="150" Background="Transparent" Margin="50,0,550,400"  />
-        <DataGrid Grid.Row="1"  Width="400" Height="300" Background="Transparent" Margin="50,200,550,150"  />
-        <DataGrid Grid.Row="1"  Width="400" Height="300" Background="Transparent" Margin="500,200,50,150"  />
-        
+        <userControls:TitleBar Grid.Row="0"/>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
+            <Grid Margin="20, 10" MaxWidth="600">
+                <Grid.Resources>
+                    <DataTemplate DataType="{x:Type vms:MainWindowViewModel}">
+                        <views:MainWindowView/>
+                    </DataTemplate>
+                </Grid.Resources>
+            </Grid>
+        </ScrollViewer>
+
 
 
     </Grid>

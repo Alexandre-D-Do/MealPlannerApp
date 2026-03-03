@@ -1,27 +1,18 @@
-﻿using MealPlannerApp.Models;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
+using MealPlannerApp.Models;
 using System.Collections.ObjectModel;
 
 namespace MealPlannerApp.ViewModels
 {
-    internal class MainWindowViewModel
+    
+    public partial class MainWindowViewModel : ObservableObject
     {
         public MainWindowViewModel() { }
 
         public ObservableCollection<Recipe> Recipes { get; set; }
 
+        [ObservableProperty]
         private int selectedItem;
-
-        
-
-        public int SelectedItem
-        {
-            get { return selectedItem; }
-            set 
-            {
-                selectedItem = value;
-                OnPropertyChanged();
-            }
-        }
 
         
 
