@@ -7,12 +7,25 @@ namespace MealPlannerApp.ViewModels
     
     public partial class MainWindowViewModel : ObservableObject
     {
-        public MainWindowViewModel() { }
 
-        public ObservableCollection<Recipe> Recipes { get; set; }
+        private readonly ObservableCollection<IngredientViewModel> _ingredients;
+        public IEnumerable<IngredientViewModel> Ingredients => _ingredients;
+        public ObservableCollection<Recipe> _recipes;
+        public IEnumerable<Recipe> Recipes => _recipes;
+        public MainWindowViewModel() 
+        {
+            _ingredients = new ObservableCollection<IngredientViewModel>();
+            _recipes = new ObservableCollection<Recipe>();
+        }
+
+
+        
 
         [ObservableProperty]
         private int selectedItem;
+
+       
+        
 
         
 
