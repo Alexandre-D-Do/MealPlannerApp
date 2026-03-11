@@ -10,5 +10,10 @@ namespace MealPlannerApp.Models
     {
         public string Name { get; set; }
         public bool IsStocked { get; set; }
+        public Ingredient(string name, bool isStocked)
+        {
+            Name = name;
+            IsStocked = isStocked;
+        }
     }
 }

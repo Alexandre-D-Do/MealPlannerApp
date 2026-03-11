@@ -10,8 +10,12 @@ namespace MealPlannerApp.ViewModels
 
         private readonly ObservableCollection<IngredientViewModel> _ingredients;
         public IEnumerable<IngredientViewModel> Ingredients => _ingredients;
+
+
         public ObservableCollection<Recipe> _recipes;
         public IEnumerable<Recipe> Recipes => _recipes;
+
+        /// Constructor
         public MainWindowViewModel() 
         {
             _ingredients = new ObservableCollection<IngredientViewModel>();
