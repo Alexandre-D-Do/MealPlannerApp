@@ -11,7 +11,7 @@ namespace MealPlannerApp.DTOs
     public class IngredientDTO
     {
         [Key]
-        public Guid Id { get; set; }
+        public Guid IngredientId { get; set; }
 
         public string Name { get; set; }
 

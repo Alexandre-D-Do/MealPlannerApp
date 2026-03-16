@@ -12,7 +12,7 @@ namespace MealPlannerApp.Services.IngredientProviders
 {
     public class DatabaseIngredientProvider : IIngredientProvider
     {
-        private string _connectionString;
+        private string _connectionString; 
 
         public DatabaseIngredientProvider(string connectionString)
         {
@@ -23,14 +23,32 @@ namespace MealPlannerApp.Services.IngredientProviders
             var contextoptions = new DbContextOptionsBuilder<MealPlannerAppDbContext>().UseSqlite(_connectionString).Options;
             using (MealPlannerAppDbContext context = new MealPlannerAppDbContext(contextoptions))
             {
-                IEnumerable<IngredientDTO> ingredientDTOs = await context.Ingredients.ToListAsync();
+                var ingredientDTOs = await context.Ingredients
+                    .Include(i => i.RecipeIngredients)
+                        .ThenInclude(ri => ri.Recipe)
+                    .ToListAsync();
+
                 return ingredientDTOs.Select(ingredient => ToIngredient(ingredient));
             }
         }
 
         private static Ingredient ToIngredient(IngredientDTO ingredientDTO)
         {
-            return new Ingredient(ingredientDTO.Name, ingredientDTO.IsStocked);
+            var ingredient = new Ingredient(ingredientDTO.Name, ingredientDTO.IsStocked);
+
+            // Surface recipe names that reference this ingredient
+            if (ingredientDTO.RecipeIngredients != null)
+            {
+                var names = ingredientDTO.RecipeIngredients
+                    .Where(ri => ri.Recipe != null && !string.IsNullOrEmpty(ri.Recipe.Name))
+                    .Select(ri => ri.Recipe.Name)
+                    .Distinct()
+                    .ToList();
+
+                ingredient.Recipes = names;
+            }
+
+            return ingredient;
         }
     }
 }
