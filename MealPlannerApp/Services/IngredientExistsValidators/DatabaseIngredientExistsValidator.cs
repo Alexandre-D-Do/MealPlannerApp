@@ -12,12 +12,11 @@ namespace MealPlannerApp.Services.IngredientExistsValidators
 {
     public class DatabaseIngredientExistsValidator : IIngredientExistsValidator
     {
-        string _connectionstring;
+        private string _connectionString;
 
         public async Task<Ingredient> GetConflictingIngredient(Ingredient ingredient)
         {
-            var contextoptions = new DbContextOptionsBuilder<MealPlannerAppDbContext>()
-                .UseSqlite(_connectionstring).Options;
+            var contextoptions = new DbContextOptionsBuilder<MealPlannerAppDbContext>().UseSqlite(_connectionString).Options;
 
             using (MealPlannerAppDbContext context = new MealPlannerAppDbContext(contextoptions))
             {

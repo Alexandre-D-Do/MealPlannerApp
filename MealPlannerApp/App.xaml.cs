@@ -1,4 +1,9 @@
-﻿using Microsoft.Extensions.Hosting;
+﻿using MealPlannerApp.DbContexts;
+using MealPlannerApp.ViewModels;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 using System.Configuration;
 using System.Data;
 using System.Security.Cryptography.X509Certificates;
@@ -18,6 +23,13 @@ namespace MealPlannerApp
             _host = Host.CreateDefaultBuilder().ConfigureServices((hostcontext, services) =>
                 {
                     string connectionString = hostcontext.Configuration.GetConnectionString("MealPlannerDatabase");
+
+                    services.AddDbContext<MealPlannerAppDbContext>(options => options.UseSqlite(connectionString));
+
+                    services.AddSingleton(s => new MainWindow()
+                    {
+                        DataContext = s.GetRequiredService<MainWindowViewModel>()
+                    });
                 })
                 .Build();
         }

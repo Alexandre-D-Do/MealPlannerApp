@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MealPlannerApp.Services.RecipeProviders
 {
-    public class DatabaseRecipeProvider
+    public class DatabaseRecipeProvider : IRecipeProvider
     {
     }
 }

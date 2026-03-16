@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MealPlannerApp.Services.RecipeExistsValidators
 {
-    public class DatabaseRecipeExistsValidator
+    public class DatabaseRecipeExistsValidator : IRecipeExistsValidator
     {
     }
 }

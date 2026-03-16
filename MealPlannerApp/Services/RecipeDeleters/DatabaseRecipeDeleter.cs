@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MealPlannerApp.Services.RecipeDeleters
 {
-    public class DatabaseRecipeDeleter
+    public class DatabaseRecipeDeleter : IRecipeDeleter
     {
     }
 }
