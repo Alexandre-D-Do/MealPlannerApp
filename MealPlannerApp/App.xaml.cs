@@ -26,6 +26,9 @@ namespace MealPlannerApp
 
                     services.AddDbContext<MealPlannerAppDbContext>(options => options.UseSqlite(connectionString));
 
+                    services.AddTransient<ApplicationHomeViewModel>((s)=> Create)
+                    services.AddSingleton<MainWindowViewModel>();
+
                     services.AddSingleton(s => new MainWindow()
                     {
                         DataContext = s.GetRequiredService<MainWindowViewModel>()

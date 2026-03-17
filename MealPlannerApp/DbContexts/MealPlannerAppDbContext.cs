@@ -33,7 +33,7 @@ namespace MealPlannerApp.DbContexts
                 .HasOne(ri => ri.Recipe)
                 .WithMany(r => r.RecipeIngredients)
                 .HasForeignKey(ri => ri.RecipeId)
-                .OnDelete(DeleteBehavior.Cascade);
+                .OnDelete(DeleteBehavior.Cascade).HasForeignKey();
 
             modelBuilder.Entity<RecipeIngredientDTO>()
                 .HasOne(ri => ri.Ingredient)

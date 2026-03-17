@@ -5,11 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MealPlannerApp.Services.RecipeProviders
+namespace MealPlannerApp.Services.RecipeRemovers
 {
-    public class DatabaseRecipeProvider : IRecipeProvider
+    public class DatabaseRecipeRemover : IRecipeRemover
     {
-        public Task<IEnumerable<Recipe>> GetAllRecipes()
+        public Task RemoveRecipe(Recipe recipe)
         {
             throw new NotImplementedException();
         }

@@ -20,18 +20,18 @@ namespace MealPlannerApp.Mappers
 
             var dto = new RecipeDTO
             {
-                Id = recipeId,
+                RecipeId = recipeId,
                 Name = model.Name,
                 Cuisine = model.Cuisine,
                 Servings = model.Servings,
             };
 
             // Ingredients -> RecipeIngredients (creates new IngredientDTOs)
-            foreach (var ingredient in model.Ingredients ?? new ObservableCollection<Ingredient>())
+            foreach (var ingredient in model.Ingredients ?? new ObservableCollection<RecipeIngredient>())
             {
                 var ingredientDto = new IngredientDTO
                 {
-                    Id = Guid.NewGuid(),
+                    IngredientId = Guid.NewGuid(),
                     Name = ingredient.Name,
                     IsStocked = ingredient.IsStocked
                 };
@@ -39,8 +39,10 @@ namespace MealPlannerApp.Mappers
                 var ri = new RecipeIngredientDTO
                 {
                     RecipeId = recipeId,
-                    IngredientId = ingredientDto.Id,
-                    Ingredient = ingredientDto
+                    IngredientId = ingredientDto.IngredientId,
+                    Ingredient = ingredientDto,
+                    Quantity = ingredient.Quantity,
+                    Unit = ingredient.Unit
                 };
 
                 dto.RecipeIngredients.Add(ri);
@@ -52,7 +54,7 @@ namespace MealPlannerApp.Mappers
             {
                 dto.Steps.Add(new StepDTO
                 {
-                    Id = Guid.NewGuid(),
+                    StepId = Guid.NewGuid(),
                     RecipeId = recipeId,
                     Order = idx++,
                     Description = step
@@ -74,7 +76,7 @@ namespace MealPlannerApp.Mappers
                 Name = dto.Name,
                 Cuisine = dto.Cuisine,
                 Servings = dto.Servings,
-                Ingredients = new ObservableCollection<Ingredient>(),
+                Ingredients = new ObservableCollection<RecipeIngredient>(),
                 Steps = new ObservableCollection<string>()
             };
 
@@ -82,11 +84,13 @@ namespace MealPlannerApp.Mappers
             foreach (var ri in dto.RecipeIngredients ?? new List<RecipeIngredientDTO>())
             {
                 if (ri.Ingredient == null) continue;
-                model.Ingredients.Add(new Ingredient
+                var riModel = new RecipeIngredient(ri.Ingredient.Name, ri.Ingredient.IsStocked, ri.Quantity, ri.Unit)
                 {
-                    Name = ri.Ingredient.Name,
-                    IsStocked = ri.Ingredient.IsStocked
-                });
+                    Quantity = ri.Quantity,
+                    Unit = ri.Unit
+                };
+
+                model.Ingredients.Add(riModel);
             }
 
             foreach (var step in (dto.Steps ?? new List<StepDTO>()).OrderBy(s => s.Order))

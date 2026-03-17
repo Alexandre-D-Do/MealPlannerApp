@@ -20,10 +20,5 @@ namespace MealPlannerApp.DTOs
 
         [ForeignKey(nameof(IngredientId))]
         public IngredientDTO Ingredient { get; set; }
-
-        public RecipeIngredientDTO(Guid ingredientID)
-        {
-            IngredientId = ingredientID;
-        }
     }
 }

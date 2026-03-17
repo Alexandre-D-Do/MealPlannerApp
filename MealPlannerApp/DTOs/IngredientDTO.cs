@@ -17,7 +17,6 @@ namespace MealPlannerApp.DTOs
 
         public bool IsStocked { get; set; }
 
-        // Back-reference to join table. An ingredient can belong to many recipes.
         public List<RecipeIngredientDTO> RecipeIngredients { get; set; } = new List<RecipeIngredientDTO>();
     }
 }

@@ -11,7 +11,7 @@ namespace MealPlannerApp.Models
     {
         public string Name { get; set; }
         public string Cuisine { get; set; }
-        public ObservableCollection<Ingredient> Ingredients { get; set; }
+        public ObservableCollection<RecipeIngredient> Ingredients { get; set; }
         public ObservableCollection<string> Steps { get; set; }
         public int Servings { get; set; }
     }

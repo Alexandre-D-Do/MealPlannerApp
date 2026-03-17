@@ -28,6 +28,7 @@
                         <views:MainWindowView/>
                     </DataTemplate>
                 </Grid.Resources>
+                <ContentControl Margin="25,0,25,0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding CurrentViewModel}" />
             </Grid>
         </ScrollViewer>
 

@@ -12,14 +12,14 @@ namespace MealPlannerApp.Models
     public class IngredientBook
     {
         private readonly IIngredientCreator _ingredientCreator;
-        private readonly IIngredientDeleter _ingredientDeleter;
+        private readonly IIngredientRemover _ingredientRemover;
         private readonly IIngredientProvider _ingredientProvider;
         private readonly IIngredientExistsValidator _ingredientExistsValidator;
 
-        public IngredientBook(IIngredientCreator ingredientCreator, IIngredientDeleter ingredientDeleter, IIngredientProvider ingredientProvider, IIngredientExistsValidator ingredientExistsValidator)
+        public IngredientBook(IIngredientCreator ingredientCreator, IIngredientRemover ingredientRemover, IIngredientProvider ingredientProvider, IIngredientExistsValidator ingredientExistsValidator)
         {
             _ingredientCreator = ingredientCreator;
-            _ingredientDeleter = ingredientDeleter;
+            _ingredientRemover = ingredientRemover;
             _ingredientProvider = ingredientProvider;
             _ingredientExistsValidator = ingredientExistsValidator;
         }
@@ -41,9 +41,9 @@ namespace MealPlannerApp.Models
             await _ingredientCreator.CreateIngredient(ingredient);
         }
 
-        public async Task DeleteIngredient(Ingredient ingredient)
+        public async Task RemoveIngredient(Ingredient ingredient)
         {
-            await _ingredientDeleter.DeleteIngredient(ingredient);
+            await _ingredientRemover.RemoveIngredient(ingredient);
         }
     }
 }

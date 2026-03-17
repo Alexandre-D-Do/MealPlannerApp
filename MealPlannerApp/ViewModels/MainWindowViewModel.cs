@@ -1,5 +1,6 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
 using MealPlannerApp.Models;
+using MealPlannerApp.Stores;
 using System.Collections.ObjectModel;
 
 namespace MealPlannerApp.ViewModels
@@ -8,32 +9,27 @@ namespace MealPlannerApp.ViewModels
     public partial class MainWindowViewModel : ObservableObject
     {
 
-        private readonly ObservableCollection<IngredientViewModel> _ingredients;
-        public IEnumerable<IngredientViewModel> Ingredients => _ingredients;
+        private readonly NavigationStore _navigationStore;
+        public IPageViewModel CurrentViewModel => _navigationStore.CurrentViewModel;
 
-
-        public ObservableCollection<Recipe> _recipes;
-        public IEnumerable<Recipe> Recipes => _recipes;
-
-        /// Constructor
-        public MainWindowViewModel() 
+        public MainWindowViewModel()
         {
-            _ingredients = new ObservableCollection<IngredientViewModel>();
-            _recipes = new ObservableCollection<Recipe>();
+            _navigationStore = new NavigationStore();
+            _navigationStore.CurrentViewModelChanged += CurrentViewModelChangedHandler;
+        }
+
+        private void CurrentViewModelChangedHandler()
+        {
+            OnPropertyChanged(nameof(CurrentViewModel));
         }
 
 
-        
 
-        [ObservableProperty]
-        private int selectedItem;
 
-       
-        
 
-        
 
-        
+
+
 
     }      
 

@@ -5,10 +5,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MealPlannerApp.Services.RecipeDeleters
+namespace MealPlannerApp.Services.RecipeRemovers
 {
-    public interface IRecipeDeleter
+    public interface IRecipeRemover
     {
-        Task DeleteRecipe(Recipe recipe);
+        Task RemoveRecipe(Recipe recipe);
     }
 }

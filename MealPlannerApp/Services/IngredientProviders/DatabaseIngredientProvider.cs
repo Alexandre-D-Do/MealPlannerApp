@@ -25,7 +25,7 @@ namespace MealPlannerApp.Services.IngredientProviders
             {
                 var ingredientDTOs = await context.Ingredients
                     .Include(i => i.RecipeIngredients)
-                        .ThenInclude(ri => ri.Recipe)
+                    .ThenInclude(ri => ri.Recipe)
                     .ToListAsync();
 
                 return ingredientDTOs.Select(ingredient => ToIngredient(ingredient));

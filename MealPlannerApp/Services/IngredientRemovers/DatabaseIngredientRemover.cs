@@ -8,26 +8,26 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MealPlannerApp.Services.IngredientDeleters
+namespace MealPlannerApp.Services.IngredientRemovers
 {
-    public class DatabaseIngredientDeleter : IIngredientDeleter
+    public class DatabaseIngredientRemover : IIngredientRemover
     {
         private string _connectionString;
 
-        public DatabaseIngredientDeleter(string connectionString)
+        public DatabaseIngredientRemover(string connectionString)
         {
             _connectionString = connectionString;
         }
 
-        public async Task DeleteIngredient(Ingredient ingredient)
+        public async Task RemoveIngredient(Ingredient ingredient)
         {
             var contextOptions = new DbContextOptionsBuilder<MealPlannerAppDbContext>().UseSqlite(_connectionString).Options;
             using (MealPlannerAppDbContext context = new MealPlannerAppDbContext(contextOptions))
             {
                 IngredientDTO ingredientDTO = ToIngredientDTO(ingredient);
-                var ingredientToDelete = await context.Ingredients.FirstOrDefaultAsync(i => i.Name == ingredientDTO.Name);
-                if (ingredientToDelete != null) {
-                    context.Ingredients.Remove(ingredientToDelete);
+                var ingredientToRemove = await context.Ingredients.FirstOrDefaultAsync(i => i.Name == ingredientDTO.Name);
+                if (ingredientToRemove != null) {
+                    context.Ingredients.Remove(ingredientToRemove);
                     await context.SaveChangesAsync();
                 }
             }
