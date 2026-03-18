@@ -4,7 +4,8 @@ using System.Text;
 
 namespace MealPlannerApp.ViewModels
 {
-    internal interface IDialogViewModel
+    public interface IDialogViewModel
     {
+        string Title { get; set; }
     }
 }

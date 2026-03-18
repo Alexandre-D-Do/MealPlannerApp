@@ -1,4 +1,5 @@
 ﻿using MealPlannerApp.DbContexts;
+using MealPlannerApp.Stores;
 using MealPlannerApp.ViewModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -8,6 +9,7 @@ using System.Configuration;
 using System.Data;
 using System.Security.Cryptography.X509Certificates;
 using System.Windows;
+using System.Windows.Navigation;
 
 namespace MealPlannerApp
 {
@@ -26,7 +28,7 @@ namespace MealPlannerApp
 
                     services.AddDbContext<MealPlannerAppDbContext>(options => options.UseSqlite(connectionString));
 
-                    services.AddTransient<ApplicationHomeViewModel>((s)=> Create)
+                    services.AddTransient<HomePageViewModel>((s) => CreateHomePageViewModel(s));
                     services.AddSingleton<MainWindowViewModel>();
 
                     services.AddSingleton(s => new MainWindow()
@@ -36,6 +38,15 @@ namespace MealPlannerApp
                 })
                 .Build();
         }
+
+        private static HomePageViewModel CreateHomePageViewModel(IServiceProvider services)
+        {
+            return HomePageViewModel.LoadViewModel(
+                services.GetRequiredService<ApplicationDataStore>(),
+                services.GetRequiredService<NavigationService<AddIngredientViewModel>>());
+        }
+
+
 
     }
 

@@ -1,6 +1,6 @@
 ﻿using MealPlannerApp.Exceptions;
 using MealPlannerApp.Services.IngredientCreators;
-using MealPlannerApp.Services.IngredientDeleters;
+using MealPlannerApp.Services.IngredientRemovers;
 using MealPlannerApp.Services.IngredientExistsValidators;
 using MealPlannerApp.Services.IngredientProviders;
 using System;
