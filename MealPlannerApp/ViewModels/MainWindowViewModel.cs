@@ -12,9 +12,9 @@ namespace MealPlannerApp.ViewModels
         private readonly NavigationStore _navigationStore;
         public IPageViewModel CurrentViewModel => _navigationStore.CurrentViewModel;
 
-        public MainWindowViewModel()
+        public MainWindowViewModel(NavigationStore navigationStore)
         {
-            _navigationStore = new NavigationStore();
+            _navigationStore = navigationStore;
             _navigationStore.CurrentViewModelChanged += CurrentViewModelChangedHandler;
         }
 
@@ -23,16 +23,6 @@ namespace MealPlannerApp.ViewModels
             OnPropertyChanged(nameof(CurrentViewModel));
         }
 
-
-
-
-
-
-
-
-
     }      
-
-     
     
 }

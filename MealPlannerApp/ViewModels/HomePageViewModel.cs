@@ -17,7 +17,7 @@ namespace MealPlannerApp.ViewModels
     {
 
         private readonly ApplicationDataStore _applicationDataStore;
-        private readonly DialogService _dialogService;
+        private readonly IDialogService _dialogService;
         private readonly NavigationService<AddRecipeViewModel> _addRecipeNavigationService;
        
         private readonly ObservableCollection<IngredientViewModel> _ingredients;
@@ -30,7 +30,7 @@ namespace MealPlannerApp.ViewModels
         private IngredientViewModel selectedItem;
 
         /// Constructor
-        public HomePageViewModel(ApplicationDataStore applicationDataStore, DialogService dialogService, NavigationService<AddRecipeViewModel> addRecipeNavigationService)
+        public HomePageViewModel(ApplicationDataStore applicationDataStore, IDialogService dialogService, NavigationService<AddRecipeViewModel> addRecipeNavigationService)
         {
             _applicationDataStore = applicationDataStore;
             _dialogService = dialogService;
@@ -89,6 +89,18 @@ namespace MealPlannerApp.ViewModels
             IsLoading = false;
         }
 
+        [RelayCommand]
+        private async Task AddIngredient()
+        {
+            AddIngredientViewModel addIngredientViewModel = new AddIngredientViewModel();
+            _dialogService.ShowDialog(addIngredientViewModel);
+
+            if (addIngredientViewModel.Result != null)
+            {
+                await _applicationDataStore.AddIngredient(addIngredientViewModel.Result);
+            }
+        }
+
         public void UpdateIngredients(IEnumerable<Ingredient> ingredients)
         {
             _ingredients.Clear();
@@ -101,7 +113,7 @@ namespace MealPlannerApp.ViewModels
 
         public bool HasErrorMessage => !string.IsNullOrEmpty(ErrorMessage);
 
-        public static HomePageViewModel LoadViewModel(ApplicationDataStore applicationDataStore, DialogService dialogService, NavigationService<AddRecipeViewModel> addRecipeNavigationService)
+        public static HomePageViewModel LoadViewModel(ApplicationDataStore applicationDataStore, IDialogService dialogService, NavigationService<AddRecipeViewModel> addRecipeNavigationService)
         {
             HomePageViewModel viewModel = new HomePageViewModel(applicationDataStore, dialogService, addRecipeNavigationService);
             viewModel.LoadDataCommand.Execute(null);

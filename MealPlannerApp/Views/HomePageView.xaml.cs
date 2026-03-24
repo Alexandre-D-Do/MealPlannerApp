@@ -13,11 +13,11 @@ using System.Windows.Shapes;
 namespace MealPlannerApp.Views
 {
     /// <summary>
-    /// Interaction logic for MainWindowView.xaml
+    /// Interaction logic for HomePageView.xaml
     /// </summary>
-    public partial class MainWindowView : Window
+    public partial class HomePageView : UserControl
     {
-        public MainWindowView()
+        public HomePageView()
         {
             InitializeComponent();
         }

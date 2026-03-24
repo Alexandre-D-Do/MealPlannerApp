@@ -1,0 +1,29 @@
+<UserControl x:Class="MealPlannerApp.Views.AddIngredientView"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+             mc:Ignorable="d"
+             Width="300"
+             xmlns:userControls="clr-namespace:MealPlannerApp.UserControls">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="30"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <userControls:TitleBar Grid.Row="0"/> 
+        <StackPanel Margin="20" Grid.Row="1">
+            <TextBlock Text="Name" Margin="0,0,0,4"/>
+            <TextBox Text="{Binding Name, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,0,12"/>
+
+            <CheckBox Content="In stock" Foreground="White" IsChecked="{Binding IsStocked}" Margin="0,0,0,16"/>
+
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <Button Style="{StaticResource ApplicationButton}" Content="Cancel" Command="{Binding CancelCommand}" Width="70" Margin="0,0,8,0"/>
+                <Button Style="{StaticResource ApplicationButton}" Content="Add" Command="{Binding ConfirmCommand}" Width="70"
+                    IsDefault="True"/>
+            </StackPanel>
+    
+        </StackPanel>
+    </Grid>
+</UserControl>

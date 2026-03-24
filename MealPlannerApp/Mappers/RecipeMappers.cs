@@ -9,10 +9,11 @@ namespace MealPlannerApp.Mappers
 {
     public static class RecipeMappers
     {
-        // Map Model -> DTO. Note: this creates new IngredientDTO entries for every ingredient name.
-        // To reuse existing Ingredient rows (shared ingredients) you should resolve Ingredients by name/Id
-        // using your repository before creating RecipeIngredientDTO entries.
-        public static RecipeDTO ToDTO(this Recipe model)
+        // Map Model -> DTO.
+        // Pass existingIngredients (name -> IngredientDTO) to reuse existing rows and avoid
+        // violating the unique index on IngredientDTO.Name. Any ingredient not found in the
+        // lookup will have a new IngredientDTO created for it.
+        public static RecipeDTO ToDTO(this Recipe model, IReadOnlyDictionary<string, IngredientDTO> existingIngredients = null)
         {
             if (model == null) return null;
 
@@ -26,15 +27,22 @@ namespace MealPlannerApp.Mappers
                 Servings = model.Servings,
             };
 
-            // Ingredients -> RecipeIngredients (creates new IngredientDTOs)
             foreach (var ingredient in model.Ingredients ?? new ObservableCollection<RecipeIngredient>())
             {
-                var ingredientDto = new IngredientDTO
+                IngredientDTO ingredientDto;
+                if (existingIngredients != null && existingIngredients.TryGetValue(ingredient.Name, out var existing))
                 {
-                    IngredientId = Guid.NewGuid(),
-                    Name = ingredient.Name,
-                    IsStocked = ingredient.IsStocked
-                };
+                    ingredientDto = existing;
+                }
+                else
+                {
+                    ingredientDto = new IngredientDTO
+                    {
+                        IngredientId = Guid.NewGuid(),
+                        Name = ingredient.Name,
+                        IsStocked = ingredient.IsStocked
+                    };
+                }
 
                 var ri = new RecipeIngredientDTO
                 {
@@ -84,11 +92,7 @@ namespace MealPlannerApp.Mappers
             foreach (var ri in dto.RecipeIngredients ?? new List<RecipeIngredientDTO>())
             {
                 if (ri.Ingredient == null) continue;
-                var riModel = new RecipeIngredient(ri.Ingredient.Name, ri.Ingredient.IsStocked, ri.Quantity, ri.Unit)
-                {
-                    Quantity = ri.Quantity,
-                    Unit = ri.Unit
-                };
+                var riModel = new RecipeIngredient(ri.Ingredient.Name, ri.Ingredient.IsStocked, ri.Quantity, ri.Unit);
 
                 model.Ingredients.Add(riModel);
             }

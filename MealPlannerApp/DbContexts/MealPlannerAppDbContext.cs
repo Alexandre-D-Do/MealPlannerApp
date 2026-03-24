@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace MealPlannerApp.DbContexts
 {
-    public class MealPlannerAppDbContext :DbContext
+    public class MealPlannerAppDbContext : DbContext
     {
         public DbSet<IngredientDTO> Ingredients { get; set; }
         public DbSet<RecipeDTO> Recipes { get; set; }
@@ -33,7 +33,7 @@ namespace MealPlannerApp.DbContexts
                 .HasOne(ri => ri.Recipe)
                 .WithMany(r => r.RecipeIngredients)
                 .HasForeignKey(ri => ri.RecipeId)
-                .OnDelete(DeleteBehavior.Cascade).HasForeignKey();
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<RecipeIngredientDTO>()
                 .HasOne(ri => ri.Ingredient)
@@ -45,6 +45,7 @@ namespace MealPlannerApp.DbContexts
             modelBuilder.Entity<StepDTO>()
                 .HasIndex(s => new { s.RecipeId, s.Order })
                 .IsUnique();
+            
         }
     }
 

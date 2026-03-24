@@ -1,4 +1,8 @@
 ﻿using MealPlannerApp.DbContexts;
+using MealPlannerApp.HostBuilders;
+using MealPlannerApp.Models;
+using MealPlannerApp.Services;
+using MealPlannerApp.Services.Dialogs;
 using MealPlannerApp.Stores;
 using MealPlannerApp.ViewModels;
 using Microsoft.EntityFrameworkCore;
@@ -22,14 +26,16 @@ namespace MealPlannerApp
 
         public App()
         {
-            _host = Host.CreateDefaultBuilder().ConfigureServices((hostcontext, services) =>
+            _host = Host.CreateDefaultBuilder().AddServices().AddViewModels().ConfigureServices((hostcontext, services) =>
                 {
                     string connectionString = hostcontext.Configuration.GetConnectionString("MealPlannerDatabase");
 
                     services.AddDbContext<MealPlannerAppDbContext>(options => options.UseSqlite(connectionString));
 
-                    services.AddTransient<HomePageViewModel>((s) => CreateHomePageViewModel(s));
-                    services.AddSingleton<MainWindowViewModel>();
+                    services.AddSingleton<IngredientBook>();
+                    services.AddSingleton<ApplicationDataStore>();
+                    services.AddSingleton<NavigationStore>();
+                    
 
                     services.AddSingleton(s => new MainWindow()
                     {
@@ -39,13 +45,29 @@ namespace MealPlannerApp
                 .Build();
         }
 
-        private static HomePageViewModel CreateHomePageViewModel(IServiceProvider services)
+        // Add database migration
+        protected override void OnStartup(StartupEventArgs e)
         {
-            return HomePageViewModel.LoadViewModel(
-                services.GetRequiredService<ApplicationDataStore>(),
-                services.GetRequiredService<NavigationService<AddIngredientViewModel>>());
+            _host.Start();
+            using (MealPlannerAppDbContext mealPlannerAppDbContext = _host.Services.GetRequiredService<MealPlannerAppDbContext>())
+            {
+                mealPlannerAppDbContext.Database.Migrate();
+            }
+
+            //Initial Navigation
+            NavigationService<HomePageViewModel> navigationService = _host.Services.GetRequiredService<NavigationService<HomePageViewModel>>();
+            navigationService.Navigate();
+            MainWindow = _host.Services.GetRequiredService<MainWindow>();
+            MainWindow.Show();
+
+            base.OnStartup(e);
         }
 
+        protected override void OnExit(ExitEventArgs e)
+        {
+            _host?.Dispose();
+            base.OnExit(e);
+        }
 
 
     }

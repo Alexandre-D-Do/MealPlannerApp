@@ -32,7 +32,7 @@ namespace MealPlannerApp.UserControls
         private void TitleBar_Loaded(object sender, RoutedEventArgs e)
         {
             parentWindow = Window.GetWindow(this);
-            windowName.Content = parentWindow.Title;   
+            windowName.Content = parentWindow.Title;
             windowNormalHeight = parentWindow.Height;
             windowNormalWidth = parentWindow.Width;
         }
@@ -40,7 +40,6 @@ namespace MealPlannerApp.UserControls
 
         private void MinimizeButton_Click(object sender, RoutedEventArgs e)
         {
-
             parentWindow.WindowState = WindowState.Minimized;
         }
 
@@ -53,10 +52,10 @@ namespace MealPlannerApp.UserControls
 
         private void CloseButton_Click(object sender, RoutedEventArgs e)
         {
-            parentWindow.Close();   
+            parentWindow.Close();
         }
 
-        
+
 
         private void TitleBar_MouseMove(object sender, MouseEventArgs e)
         {

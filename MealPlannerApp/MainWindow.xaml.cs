@@ -19,8 +19,6 @@ namespace MealPlannerApp
         {
             InitializeComponent();
             WindowStartupLocation = WindowStartupLocation.CenterScreen;
-            MainWindowViewModel vm = new MainWindowViewModel();
-            DataContext = vm;
         }
 
         

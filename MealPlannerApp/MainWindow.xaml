@@ -24,8 +24,8 @@
         <ScrollViewer VerticalScrollBarVisibility="Auto" Grid.Row="1">
             <Grid Margin="20, 10" MaxWidth="600">
                 <Grid.Resources>
-                    <DataTemplate DataType="{x:Type vms:MainWindowViewModel}">
-                        <views:MainWindowView/>
+                    <DataTemplate DataType="{x:Type vms:HomePageViewModel}">
+                        <views:HomePageView/>
                     </DataTemplate>
                 </Grid.Resources>
                 <ContentControl Margin="25,0,25,0"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Content="{Binding CurrentViewModel}" />
