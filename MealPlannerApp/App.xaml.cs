@@ -45,7 +45,6 @@ namespace MealPlannerApp
                 .Build();
         }
 
-        // Add database migration
         protected override void OnStartup(StartupEventArgs e)
         {
             _host.Start();

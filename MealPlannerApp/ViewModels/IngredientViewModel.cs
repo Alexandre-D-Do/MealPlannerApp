@@ -12,6 +12,8 @@ namespace MealPlannerApp.ViewModels
         public string Name => _ingredient.Name;
         public bool IsStocked => _ingredient.IsStocked;
 
+        public string IsStockedDisplay => IsStocked ? "In Stock" : "Out of Stock";
+
         public IngredientViewModel(Ingredient ingredient)
         {
             _ingredient = ingredient;
